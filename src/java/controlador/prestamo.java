@@ -94,6 +94,7 @@ public class prestamo extends HttpServlet {
             interesDouble=0;
         }
         int tiempoInt=Integer.parseInt(tiempo);
+        
         Prestamo miPrestamo = new Prestamo(cantidadDouble,interesDouble,tiempoInt);
          ArrayList<String> meses = Utilidades.getMeses();
          request.setAttribute("meses", meses);

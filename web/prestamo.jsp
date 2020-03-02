@@ -28,7 +28,7 @@
         String importePrestamo, cantidad, intereses, tiempo;
         
         if ( miPrestamo==null) {
-            importePrestamo=""; cantidad = "0"; intereses="0";tiempo="12";
+            importePrestamo="0"; cantidad = "0"; intereses="0";tiempo="12";
         } else {
             importePrestamo = String.valueOf(miPrestamo.getImportePrestamo());
             cantidad = String.valueOf(miPrestamo.getCantidad());
@@ -38,36 +38,46 @@
         %>
         <form action="prestamo" method="post">
             <p><label for="nombre">Nombre:</label><input type="text" id="nombre" name="nombre" value="<%=nombre%>" ></p><br>
-            <p><label for="cantidad">Cantidad que solicita:</label><input type="text" id="cantidad" value="<%=cantidad%>" name="cantidad" ></p><br>
+            <p><label for="cantidad">Cantidad que solicita:</label><input type="text" id="cantidad" name="cantidad" value="<%=cantidad%>"  ></p><br>
             <p><label for="intereses">Interés:</label><input type="text" id="intereses" name="interes" value="<%=intereses%>" ></p><br>
-                    <p><label for="tiempo">Tiempo(meses):</label><select id="tiempo" name="tiempo" >
+            <p><label for="tiempo">Tiempo(meses):</label><select id="tiempo" name="tiempo" >
+                    
                        <% for (int i=0; i<meses.size(); i++) {
                        String cadenaSelected="";
                        if ( tiempo.equals(meses.get(i))) {
                            cadenaSelected = "selected";
                        }
                        %>
-                       <option value="<%=meses.get(i) %>" <%=cadenaSelected%> ><%=meses.get(i) %></option>
-                        
-                            
+                       <option value="<%=meses.get(i) %>" <%=cadenaSelected%> ><%=meses.get(i) %></option>   
                        <% } %>     
                      </select>
             <input type="submit" value="Consultar">
+            
+            
+            
+            
+            
+            
+            <!-- Compruebo que el importe del prestamo no es null, para generar la tabla con las cuotas -->
             <% if ( importePrestamo!="" ) { %>
                     <h1>ImporteTotalPrestamo: <%=importePrestamo %></h1>
            <% }%>
-           <table border="1">
+           <table border="5">
            <% ArrayList<Cuota> cuotas = (ArrayList<Cuota>) request.getAttribute("cuotas");
            if (cuotas!=null) { %>
-           <tr><th>NumCuota</th><th>Importe</th><th>Cantidad</th><th>Interés</th>
+           <tr>
+               <th>NumCuota</th>
+               <th>Importe</th>
+               <th>Cantidad</th>
+               <th>Interés</th>
                
-            <%
-               for (int i=0; i<cuotas.size(); i++){
-               Cuota micuota2 = cuotas.get(i);  
-               
-               %>
+            <%for (int i=0; i<cuotas.size(); i++){ %>
               
-               <tr><td><%=cuotas.get(i).numeroCuota  %></td><td><%=cuotas.get(i).importe  %></td><td><%=cuotas.get(i).getCantidadString()  %></td><td><%=cuotas.get(i).intereses  %></td>
+                <tr>
+                    <td><%=cuotas.get(i).numeroCuota%></td>
+                    <td><%=cuotas.get(i).getImporteString()%></td>
+                    <td><%=cuotas.get(i).getCantidadString()%></td>
+                    <td><%=cuotas.get(i).getInteresesString()%></td>
               <% }
            }
            %>

@@ -25,11 +25,6 @@ public class Cuota {
     public int getNumeroCuota() {
         return numeroCuota;
     }
-
-    public String getCantidadString() {
-        return String.format("%.2f", cantidad);
-       
-    }
     
     public double getImporte() {
         return importe;
@@ -42,5 +37,21 @@ public class Cuota {
     public double getIntereses() {
         return intereses;
     }
+    
+    public String getCantidadString() {
+        return String.format("%.2f", cantidad);
+       
+    }
+    
+    public String getInteresesString() {
+        return String.format("%.2f", intereses);
+       
+    }
+    public String getImporteString() {
+        return String.format("%.2f", importe);
+       
+    }
+    
+
    
 }
