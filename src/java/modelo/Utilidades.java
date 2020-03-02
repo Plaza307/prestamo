@@ -17,5 +17,16 @@ public class Utilidades {
         return meses;
     }
     
+    public static ArrayList<Cuota> generarListaCuotas ( int numCuotas, double importeTotal) {
+        ArrayList<Cuota> cuotas = new ArrayList<Cuota>();
+        double importeCuota = importeTotal /  numCuotas;
+        for ( int i=1; i<=numCuotas; i++) {
+            double interesesCuota  = importeCuota - importeCuota * ( i - 1) / numCuotas;
+            double cantidadCuota = importeCuota - interesesCuota;
+            Cuota miCuota = new Cuota(i, importeCuota,cantidadCuota, interesesCuota );
+            cuotas.add(miCuota);
+        }
+        return cuotas;
+    }
     
 }

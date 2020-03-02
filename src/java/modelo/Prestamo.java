@@ -10,28 +10,27 @@ package modelo;
  * @author Ángel Plaza Cámara
  */
 public class Prestamo {
-    
-    private double cantidad;
-    private double intereses;
-    private int tiempo;
-    private double importePrestamo;
+    public double cantidad;
+    public double intereses;
+    public int tiempo;
+    public double importePrestamo;
 
     public Prestamo(double cantidad, double intereses, int tiempo) {
         this.cantidad = cantidad;
         this.intereses = intereses;
         this.tiempo = tiempo;
-        
-        this.importePrestamo = importeTotalPrestamo(cantidad, intereses, tiempo);
+        this.importePrestamo = importeTotalPrestamo( cantidad, intereses, tiempo);
     }
-
-    public importeTotalPrestamo(double cantidad, double intereses, int tiempo){
-        public double interesSimple= cantidad*intereses*tiempo/1200;
+    
+    public double importeTotalPrestamo(double cantidad, double intereses, int tiempo ){
+        double interesSimple= cantidad*intereses*tiempo/1200;
         return interesSimple+cantidad;
     }
 
     public double getCantidad() {
         return cantidad;
     }
+
 
     public double getIntereses() {
         return intereses;

@@ -12,6 +12,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.Cuota;
+import modelo.Prestamo;
 import modelo.Utilidades;
 
 /**
@@ -75,8 +77,37 @@ public class prestamo extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    }
+        String nombre = request.getParameter("nombre");
+        String cantidad = request.getParameter("cantidad");
+        String intereses = request.getParameter("intereses");
+        String tiempo = request.getParameter("tiempo");
+        double cantidadDouble;
+        if ( cantidad!=null ) {
+            cantidadDouble= Double.parseDouble(cantidad);
+        } else {
+            cantidadDouble=0;
+        }
+        double interesDouble;
+        if ( intereses!=null ) {
+            interesDouble= Double.parseDouble(intereses);
+        } else {
+            interesDouble=0;
+        }
+        int tiempoInt=Integer.parseInt(tiempo);
+        Prestamo miPrestamo = new Prestamo(cantidadDouble,interesDouble,tiempoInt);
+         ArrayList<String> meses = Utilidades.getMeses();
+         request.setAttribute("meses", meses);
+        request.setAttribute("nombre", nombre);
+        request.setAttribute("prestamo", miPrestamo);
+        ArrayList<Cuota> cuotas = Utilidades.generarListaCuotas(tiempoInt, miPrestamo.getImportePrestamo());
+        request.setAttribute("cuotas", cuotas);
 
+        
+        request.getRequestDispatcher("prestamo.jsp").forward(request, response);
+        
+        
+    }
+    
     /**
      * Returns a short description of the servlet.
      *
